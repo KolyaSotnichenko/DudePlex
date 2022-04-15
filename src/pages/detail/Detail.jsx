@@ -7,6 +7,7 @@ import apiConfig from '../../api/apiConfig';
 import './detail.scss';
 import CastList from './CastList';
 import VideoList from './VideoList';
+import Button from '../../components/button/Button';
 
 import MovieList from '../../components/movie-list/MovieList';
 
@@ -14,7 +15,16 @@ const Detail = () => {
 
     const { category, id } = useParams();
 
+    const [trailer, setTrailer] = useState([]);
     const [item, setItem] = useState(null);
+
+    useEffect(() => {
+         const getVideos = async () => {
+                const res = await tmdbApi.getVideos(category, id);
+                setTrailer(res.results.slice(0, 5));
+            }
+        getVideos();
+    }, [category, id]);
 
     useEffect(() => {
         const getDetail = async () => {
@@ -45,9 +55,14 @@ const Detail = () => {
                                             <span key={i} className="genres__item">{genre.name}</span>
                                         ))
                                     }
-                                    <p className='rating'>{item["vote_average"]}</p>
                                 </div>
                                 <p className="overview">{item.overview}</p>
+                                <div style={{display: 'flex', alignItems: 'center'}}>
+                                    <Button onClick={() => window.location.href = `https://www.youtube.com/embed/${trailer[1]['key']}`}>
+                                        Трейлер
+                                    </Button>
+                                    <p style={{paddingLeft: '50px',}} className='rating'>{item["vote_average"]}</p>
+                                </div>
                                 <div className="cast">
                                     <div className="section__header">
                                         <h2>Актори</h2>

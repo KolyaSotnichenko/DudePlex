@@ -95,7 +95,7 @@ const HeroSlideItem = props => {
                             Дивитися зараз
                         </Button>
                         <OutlineButton onClick={setModalActive}>
-                            Переглянути трейлер
+                            Трейлер
                         </OutlineButton>
                     </div>
                 </div>
