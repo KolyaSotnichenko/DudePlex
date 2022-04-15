@@ -38,6 +38,7 @@ const MovieGrid = props => {
             }
             setItems(response.results);
             setTotalPage(response.total_pages);
+            window.scrollTo(0,0);
         }
         getList();
     }, [props.category, keyword]);
