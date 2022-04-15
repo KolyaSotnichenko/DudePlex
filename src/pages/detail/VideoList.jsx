@@ -33,14 +33,13 @@ const VideoList = props => {
 
     return (
         <>
-            <Video imdb={imdbId} item={props.id}/>
+            <Video imdb={imdbId}/>
         </>
     );
 }
 
 const Video = props => {
 
-    const item = props.item;
     const imdb = props.imdb
 
     const iframeRef = useRef(null);
