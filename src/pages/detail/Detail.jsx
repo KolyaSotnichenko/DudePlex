@@ -39,20 +39,15 @@ const Detail = () => {
                                 <h1 className="title">
                                     {item.title || item.name}
                                 </h1>
-                                <div className="genres">
+                                <div className="genres" style={{display: 'flex', alignItems: 'center'}}>
                                     {
                                         item.genres && item.genres.slice(0, 5).map((genre, i) => (
                                             <span key={i} className="genres__item">{genre.name}</span>
                                         ))
                                     }
+                                    <p className='rating'>{item["vote_average"]}</p>
                                 </div>
                                 <p className="overview">{item.overview}</p>
-                                {item.status === 'Released' && (
-                                    <p style={{color: 'green'}}>{item.status}</p>
-                                )}
-                                {item.status === 'Canceled' && (
-                                    <p style={{color: 'red'}}>{item.status}</p>
-                                )}
                                 <div className="cast">
                                     <div className="section__header">
                                         <h2>Актори</h2>

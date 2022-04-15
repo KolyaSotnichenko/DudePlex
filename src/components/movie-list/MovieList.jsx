@@ -28,10 +28,10 @@ const MovieList = props => {
             if (props.type !== 'similar') {
                 switch(props.category) {
                     case category.movie:
-                        response = await tmdbApi.getMoviesList(props.type, {params: {'language': 'uk-UA'}});
+                        response = await tmdbApi.getMoviesList(props.type, {params});
                         break;
                     default:
-                        response = await tmdbApi.getTvList(props.type, {params: {'language': 'uk-UA'}});
+                        response = await tmdbApi.getTvList(props.type, {params});
                 }
             } else {
                 response = await tmdbApi.similar(props.category, props.id);

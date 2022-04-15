@@ -25,10 +25,10 @@ const MovieGrid = props => {
                 const params = {};
                 switch(props.category) {
                     case category.movie:
-                        response = await tmdbApi.getMoviesList(movieType.upcoming, {params: {'language': 'uk-UA'}});
+                        response = await tmdbApi.getMoviesList(movieType.upcoming, {params});
                         break;
                     default:
-                        response = await tmdbApi.getTvList(tvType.popular, {params: {'language': 'uk-UA'}});
+                        response = await tmdbApi.getTvList(tvType.popular, {params});
                 }
             } else {
                 const params = {
@@ -79,7 +79,7 @@ const MovieGrid = props => {
             {
                 page < totalPage ? (
                     <div className="movie-grid__loadmore">
-                        <OutlineButton className="small" onClick={loadMore}>Load more</OutlineButton>
+                        <OutlineButton className="small" onClick={loadMore}>Ще</OutlineButton>
                     </div>
                 ) : null
             }
