@@ -73,7 +73,7 @@ const Video = props => {
     return (
         <div className="video">
             <div className="video__title">
-                <h2>Watch Now for FREE!</h2>
+                <h2>Дивіться зараз БЕЗКОШТОВНО!</h2>
             </div>
             <iframe
                 src={`https://39.svetacdn.in/msNIXXBblTTU?imdb_id=${imdb}`}

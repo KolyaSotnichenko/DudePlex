@@ -18,7 +18,7 @@ const Detail = () => {
 
     useEffect(() => {
         const getDetail = async () => {
-            const response = await tmdbApi.detail(category, id, {params:{}});
+            const response = await tmdbApi.detail(category, id, {params:{'language': 'uk-UA'}});
             setItem(response);
             window.scrollTo(0,0);
         }
@@ -49,7 +49,7 @@ const Detail = () => {
                                 <p className="overview">{item.overview}</p>
                                 <div className="cast">
                                     <div className="section__header">
-                                        <h2>Casts</h2>
+                                        <h2>Актори</h2>
                                     </div>
                                     <CastList id={item.id}/>
                                 </div>
@@ -61,7 +61,7 @@ const Detail = () => {
                             </div>
                             <div className="section mb-3">
                                 <div className="section__header mb-2">
-                                    <h2>Similar</h2>
+                                    <h2>Подібні</h2>
                                 </div>
                                 <MovieList category={category} type="similar" id={item.id}/>
                             </div>

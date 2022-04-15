@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import './movie-list.scss';
 
+import SwiperCore, { Autoplay } from 'swiper';
 import { SwiperSlide, Swiper } from 'swiper/react';
 import { Link } from 'react-router-dom';
 
@@ -15,6 +16,8 @@ import MovieCard from '../movie-card/MovieCard';
 
 const MovieList = props => {
 
+    SwiperCore.use([Autoplay]);
+
     const [items, setItems] = useState([]);
 
     useEffect(() => {
@@ -25,10 +28,10 @@ const MovieList = props => {
             if (props.type !== 'similar') {
                 switch(props.category) {
                     case category.movie:
-                        response = await tmdbApi.getMoviesList(props.type, {params});
+                        response = await tmdbApi.getMoviesList(props.type, {params: {'language': 'uk-UA'}});
                         break;
                     default:
-                        response = await tmdbApi.getTvList(props.type, {params});
+                        response = await tmdbApi.getTvList(props.type, {params: {'language': 'uk-UA'}});
                 }
             } else {
                 response = await tmdbApi.similar(props.category, props.id);
@@ -41,6 +44,7 @@ const MovieList = props => {
     return (
         <div className="movie-list">
             <Swiper
+                modules={[Autoplay]}
                 grabCursor={true}
                 spaceBetween={10}
                 slidesPerView={'auto'}

@@ -25,10 +25,10 @@ const MovieGrid = props => {
                 const params = {};
                 switch(props.category) {
                     case category.movie:
-                        response = await tmdbApi.getMoviesList(movieType.upcoming, {params});
+                        response = await tmdbApi.getMoviesList(movieType.upcoming, {params: {'language': 'uk-UA'}});
                         break;
                     default:
-                        response = await tmdbApi.getTvList(tvType.popular, {params});
+                        response = await tmdbApi.getTvList(tvType.popular, {params: {'language': 'uk-UA'}});
                 }
             } else {
                 const params = {
@@ -119,11 +119,11 @@ const MovieSearch = props => {
         <div className="movie-search">
             <Input
                 type="text"
-                placeholder="Enter keyword"
+                placeholder="Введіть назву"
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
             />
-            <Button className="small" onClick={goToSearch}>Search</Button>
+            <Button className="small" onClick={goToSearch}>Пошук</Button>
         </div>
     )
 }

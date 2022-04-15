@@ -8,15 +8,15 @@ import logo from '../../assets/tmovie.png';
 
 const headerNav = [
     {
-        display: 'Home',
+        display: 'Головна',
         path: '/'
     },
     {
-        display: 'Movies',
+        display: 'Фільми',
         path: '/movie'
     },
     {
-        display: 'TV Series',
+        display: 'Серіали',
         path: '/tv'
     }
 ];

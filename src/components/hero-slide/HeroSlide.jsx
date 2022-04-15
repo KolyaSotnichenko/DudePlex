@@ -22,7 +22,7 @@ const HeroSlide = () => {
         const getMovies = async () => {
             const params = {page: 1}
             try {
-                const response = await tmdbApi.getMoviesList(movieType.popular, {params});
+                const response = await tmdbApi.getMoviesList(movieType.popular, {params: {'language': 'uk-UA'}});
                 setMovieItems(response.results.slice(1, 4));
                 console.log(response);
             } catch {
@@ -39,7 +39,7 @@ const HeroSlide = () => {
                 grabCursor={true}
                 spaceBetween={0}
                 slidesPerView={1}
-                // autoplay={{delay: 3000}}
+                autoplay={{delay: 3000}}
             >
                 {
                     movieItems.map((item, i) => (
@@ -92,10 +92,10 @@ const HeroSlideItem = props => {
                     <div className="overview">{item.overview}</div>
                     <div className="btns">
                         <Button onClick={() => hisrory.push('/movie/' + item.id)}>
-                            Watch now
+                            Дивитися зараз
                         </Button>
                         <OutlineButton onClick={setModalActive}>
-                            Watch trailer
+                            Переглянути трейлер
                         </OutlineButton>
                     </div>
                 </div>
