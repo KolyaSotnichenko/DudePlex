@@ -8,9 +8,9 @@ const VideoList = props => {
 
     const {category} = useParams();
 
-    const [videos, setVideos] = useState([]);
+    // const [videos, setVideos] = useState([]);
 
-    const [imdbId, setImdbId] = useState('')
+    const [imdbId, setImdbId] = useState(null)
 
     // useEffect(() => {
     //     const getVideos = async () => {
@@ -24,12 +24,10 @@ const VideoList = props => {
         const getExterlanIds = async () => {
             const res = await tmdbApi.getExternalIds(category, props.id)
             setImdbId(res["imdb_id"])
-            console.log(res)
         }
 
         getExterlanIds()
-        console.log(imdbId)
-    },  [category, props.id])
+    },  [category, props.id, imdbId])
 
     return (
         <>
