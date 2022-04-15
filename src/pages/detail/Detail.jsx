@@ -47,6 +47,12 @@ const Detail = () => {
                                     }
                                 </div>
                                 <p className="overview">{item.overview}</p>
+                                {item.status === 'Released' && (
+                                    <p style={{color: 'green'}}>{item.status}</p>
+                                )}
+                                {item.status === 'Canceled' && (
+                                    <p style={{color: 'red'}}>{item.status}</p>
+                                )}
                                 <div className="cast">
                                     <div className="section__header">
                                         <h2>Актори</h2>
