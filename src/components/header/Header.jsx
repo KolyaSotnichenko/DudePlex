@@ -18,6 +18,10 @@ const headerNav = [
     {
         display: 'Серіали',
         path: '/tv'
+    },
+    {
+        display: 'Профіль',
+        path: '/profile'
     }
 ];
 
