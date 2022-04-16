@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import PageHeader from '../components/page-header/PageHeader';
 import { provider, auth} from '../firebase'
 import { signInWithPopup } from 'firebase/auth';
+import GoogleButton from 'react-google-button'
 
 const SignIn = () => {
 
@@ -20,13 +21,7 @@ const SignIn = () => {
         signInWithPopup(auth, provider)
             .then(result => {
                 console.log(result)
-                const name = result.user.displayName
-                const email = result.user.email
-                const profilePic = result.user.photoURL
-    
-                localStorage.setItem("name", name)
-                localStorage.setItem("email", email)
-                localStorage.setItem("profilePic", profilePic)
+
                 sessionStorage.setItem("Auth Token", result.user.refreshToken)
 
                 history.push('/profile')
@@ -42,8 +37,10 @@ const SignIn = () => {
                 Увійти в обліковий запис
             </PageHeader>
             <div className="container">
-                <div className="section mb-3">
-                    <button onClick={signInWithGoogle}>Sign In</button>
+                <div style={{display: 'flex', justifyContent: 'center'}} className="section mb-3">
+                    <div style={{}}>
+                        <GoogleButton onClick={signInWithGoogle}/>
+                    </div>
                 </div>
             </div>
         </>
