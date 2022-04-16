@@ -35,6 +35,8 @@ const Detail = () => {
         getDetail();
     }, [category, id]);
 
+    console.log(trailer)
+
     return (
         <>
             {
@@ -58,10 +60,17 @@ const Detail = () => {
                                 </div>
                                 <p className="overview">{item.overview}</p>
                                 <div style={{display: 'flex', alignItems: 'center'}}>
-                                    <Button onClick={() => window.location.href = `https://www.youtube.com/embed/${trailer[1]['key']}`}>
-                                        Трейлер
-                                    </Button>
-                                    <p style={{paddingLeft: '50px',}} className='rating'>{item["vote_average"]}</p>
+                                    {trailer.length !== 0 && (
+                                        <>
+                                            <Button onClick={() => window.location.href = `https://www.youtube.com/embed/${trailer[0]['key']}`}>
+                                                Трейлер
+                                            </Button>
+                                            <p style={{paddingLeft: '50px',}} className='rating'>{item["vote_average"]}</p>
+                                        </>
+                                    )}
+                                    {trailer.length === 0 && (
+                                        <p className='rating'>{item["vote_average"]}</p>
+                                    )}
                                 </div>
                                 <div className="cast">
                                     <div className="section__header">
