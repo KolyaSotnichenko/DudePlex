@@ -6,6 +6,7 @@ import './header.scss';
 
 import logo from '../../assets/tmovie.png';
 import profile from '../../assets/profile.png'
+import ProfileImg from './ProfileImg';
 
 const headerNav = [
     {
@@ -67,9 +68,7 @@ const Header = () => {
                         ))
                     }
                     <li>
-                        <Link to={headerNav[3].path}>
-                            <img src={headerNav[3].image} className='header__profile__img' width="50px" height="50px"/>
-                        </Link>
+                        <ProfileImg />
                     </li>
                 </ul>
             </div>

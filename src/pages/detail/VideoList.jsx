@@ -78,10 +78,10 @@ const Video = props => {
                 width="100%"
                 height="100%"
                 title="video"
-                allowfullscreen="true"
+                allowFullScreen={true}
                 webkitallowfullscreen="true"
                 mozallowfullscreen="true"
-                frameborder="0"
+                frameBorder="0"
             ></iframe>
         </div>
     )

@@ -87,6 +87,19 @@
             }
         }
 
+        .btn-add {
+            padding: 0.5rem 1.5rem;
+            border: 2px solid limegreen;
+            border-radius: $border-radius;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background-color: $body-bg;
+
+            @include mobile {
+                margin-left: 50px !important;
+            }
+        }
+
         .rating {
             display: flex;
             width: 50px;

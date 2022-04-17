@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 
 import tmdbApi from '../../api/tmdbApi';
 import apiConfig from '../../api/apiConfig';
+import { doc, setDoc } from "firebase/firestore";
 
 import './detail.scss';
 import CastList from './CastList';
@@ -10,11 +11,13 @@ import VideoList from './VideoList';
 import Button from '../../components/button/Button';
 
 import MovieList from '../../components/movie-list/MovieList';
+import { auth, db } from '../../firebase';
 
 const Detail = () => {
 
     const { category, id } = useParams();
-
+    const [uid, setUid] = useState(null);
+    const [authToken, setAuthToken] = useState(null)
     const [trailer, setTrailer] = useState([]);
     const [item, setItem] = useState(null);
 
@@ -35,7 +38,27 @@ const Detail = () => {
         getDetail();
     }, [category, id]);
 
-    console.log(trailer)
+    useEffect(() => {
+        auth.onAuthStateChanged(user => {
+            setUid(user?.uid)
+        })
+    }, [])
+
+    useEffect(() => {
+        setAuthToken(sessionStorage.getItem("Auth Token"))
+    }, [])
+
+
+    const addWaitList = async () => {
+        try{
+            await setDoc(doc(db, "view-later-list", uid), {
+                list: [{tmdb_id: id}],
+            }, {merge: true})
+            console.log("Document written with ID: ", id);
+        }catch (e) {
+            console.error("Error adding document: ", e);
+        }
+    }
 
     return (
         <>
@@ -66,10 +89,14 @@ const Detail = () => {
                                                 Трейлер
                                             </Button>
                                             <p style={{paddingLeft: '50px',}} className='rating'>{item["vote_average"]}</p>
+                                            <span onClick={addWaitList} style={{ display: authToken ? 'inline-block' : 'none' ,marginLeft: '50px', cursor: 'pointer'}} className="btn-add" id="btn-add">Переглянути пізніше</span>
                                         </>
                                     )}
                                     {trailer.length === 0 && (
-                                        <p className='rating'>{item["vote_average"]}</p>
+                                        <>
+                                            <p className='rating'>{item["vote_average"]}</p>
+                                            <span style={{marginLeft: '50px', cursor: 'pointer'}} className="genres__item">Переглянути пізніше</span>
+                                        </>
                                     )}
                                 </div>
                                 <div className="cast">
