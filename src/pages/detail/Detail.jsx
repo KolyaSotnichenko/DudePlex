@@ -5,6 +5,8 @@ import tmdbApi from '../../api/tmdbApi';
 import apiConfig from '../../api/apiConfig';
 import { doc, setDoc } from "firebase/firestore";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './detail.scss';
 import CastList from './CastList';
 import VideoList from './VideoList';
@@ -52,9 +54,10 @@ const Detail = () => {
     const addWaitList = async () => {
         try{
             await setDoc(doc(db, "view-later-list", uid), {
-                list: [{tmdb_id: id}],
+                tmdb_id: [{id}],
             }, {merge: true})
             console.log("Document written with ID: ", id);
+            toast.success(`🎥${item.title || item.name} додано до списку "Переглянути пізніше"`)
         }catch (e) {
             console.error("Error adding document: ", e);
         }
@@ -121,6 +124,7 @@ const Detail = () => {
                     </>
                 )
             }
+            <ToastContainer />
         </>
     );
 }
