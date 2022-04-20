@@ -19,6 +19,7 @@ const Detail = () => {
 
     const { category, id } = useParams();
     const [uid, setUid] = useState(null);
+    const [moviesIds, setMoviesIds] = useState(null)
     const [authToken, setAuthToken] = useState(null)
     const [trailer, setTrailer] = useState([]);
     const [item, setItem] = useState(null);
@@ -50,11 +51,10 @@ const Detail = () => {
         setAuthToken(sessionStorage.getItem("Auth Token"))
     }, [])
 
-
     const addWaitList = async () => {
         try{
             await setDoc(doc(db, "view-later-list", uid), {
-                tmdb_id: [{id}],
+               [item.title || item.name] : id,
             }, {merge: true})
             console.log("Document written with ID: ", id);
             toast.success(`🎥${item.title || item.name} додано до списку "Переглянути пізніше"`)

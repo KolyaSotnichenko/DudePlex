@@ -8,11 +8,13 @@ import { useHistory } from 'react-router-dom';
 
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from '../../firebase';
+import LaterList from './LaterList';
 
 const Profile = () => {
 
     let history = useHistory()
     let tmdbids
+    const [moviesIds, setMoviesIds] = useState()
 
     useEffect(() => {
         let authToken = sessionStorage.getItem("Auth Token")
@@ -31,13 +33,14 @@ const Profile = () => {
                 if(snapshot.exists()){
                     console.log("Document data:", snapshot.data());
                     tmdbids = Object.values(snapshot.data())
+                    setMoviesIds(tmdbids)
                 }else{
                     console.log("No such document!");
                 }
             })
         })
 
-    }, [tmdbids])
+    }, [])
 
     return(
         <>
@@ -49,7 +52,9 @@ const Profile = () => {
                     <div style={{display: 'flex', justifyContent: 'center'}}>
                         <ProfileBlock />
                     </div>
-                    <MovieList category={category.movie} type={movieType.popular}/>
+                    {moviesIds !== null ? (
+                        <MovieList />
+                    ) : null}
                 </div>
             </div>
         </>
