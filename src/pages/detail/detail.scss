@@ -159,8 +159,11 @@
 }
 
 .lottieStyle {
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
     @media screen and (max-width: 768px) {
-        width: 300px;
+        width: 320px;
         margin: 0 auto
     }
 }
