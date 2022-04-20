@@ -20,8 +20,6 @@ const SignIn = () => {
     const signInWithGoogle = () => {
         signInWithPopup(auth, provider)
             .then(result => {
-                console.log(result)
-
                 sessionStorage.setItem("Auth Token", result.user.refreshToken)
 
                 history.push('/profile')
