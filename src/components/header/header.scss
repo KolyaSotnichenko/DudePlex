@@ -41,6 +41,13 @@
         }
     }
 
+    &__profile__img {
+        @include mobile {
+            width: 30px;
+            height: 30px;
+        }
+    }
+
     &__nav {
         @include flex(center, unset);
 

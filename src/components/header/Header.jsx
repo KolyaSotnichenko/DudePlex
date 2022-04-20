@@ -5,6 +5,8 @@ import { Link, useLocation } from 'react-router-dom';
 import './header.scss';
 
 import logo from '../../assets/tmovie.png';
+import profile from '../../assets/profile.png'
+import ProfileImg from './ProfileImg';
 
 const headerNav = [
     {
@@ -18,6 +20,10 @@ const headerNav = [
     {
         display: 'Серіали',
         path: '/tv'
+    },
+    {
+        image: profile,
+        path: '/profile'
     }
 ];
 
@@ -53,12 +59,17 @@ const Header = () => {
                     {
                         headerNav.map((e, i) => (
                             <li key={i} className={`${i === active ? 'active' : ''}`}>
-                                <Link to={e.path}>
-                                    {e.display}
-                                </Link>
+                                {e.display && (
+                                    <Link to={e.path}>
+                                        {e.display}
+                                    </Link>
+                                )}
                             </li>
                         ))
                     }
+                    <li>
+                        <ProfileImg />
+                    </li>
                 </ul>
             </div>
         </div>
