@@ -8,13 +8,16 @@ import { useHistory } from 'react-router-dom';
 
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from '../../firebase';
-import LaterList from './LaterList';
+import LaterListMovies from './LaterListMovies';
+import LaterListTvs from './LaterListTvs';
 
 const Profile = () => {
 
     let history = useHistory()
-    let tmdbids
+    let tmdbidsMovies
+    let tmdbidsTvs
     const [moviesIds, setMoviesIds] = useState()
+    const [tvsIds, setTvsIds] = useState()
 
     useEffect(() => {
         let authToken = sessionStorage.getItem("Auth Token")
@@ -32,8 +35,26 @@ const Profile = () => {
             getDoc(docRef).then(snapshot => {
                 if(snapshot.exists()){
                     console.log("Document data:", snapshot.data());
-                    tmdbids = Object.values(snapshot.data())
-                    setMoviesIds(tmdbids)
+                    tmdbidsMovies = Object.values(snapshot.data())
+                    setMoviesIds(tmdbidsMovies)
+                }else{
+                    console.log("No such document!");
+                }
+            })
+        })
+
+    }, [])
+
+    useEffect(() => {
+        auth.onAuthStateChanged(user => {
+            console.log(user.uid)
+            const docRef = doc(db, "later-tv", user.uid)
+
+            getDoc(docRef).then(snapshot => {
+                if(snapshot.exists()){
+                    console.log("Document data:", snapshot.data());
+                    tmdbidsTvs = Object.values(snapshot.data())
+                    setTvsIds(tmdbidsTvs)
                 }else{
                     console.log("No such document!");
                 }
@@ -52,8 +73,17 @@ const Profile = () => {
                     <div style={{display: 'flex', justifyContent: 'center'}}>
                         <ProfileBlock />
                     </div>
+                    <div style={{textAlign: 'center'}}>
+                        <h2>Фільми</h2>
+                    </div>
                     {moviesIds ? (
-                        <LaterList category='movie' movieIds={moviesIds} />
+                        <LaterListMovies category='movie' movieIds={moviesIds} />
+                    ) : null}
+                    <div style={{textAlign: 'center',marginTop: '50px'}}>
+                        <h2>Серіали</h2>
+                    </div>
+                    {tvsIds ? (
+                        <LaterListTvs category='tv' tvsIds={tvsIds} />
                     ) : null}
                 </div>
             </div>

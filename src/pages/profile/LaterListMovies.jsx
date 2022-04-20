@@ -17,7 +17,7 @@ import { getDoc, doc } from 'firebase/firestore';
 
 import MovieCard from '../../components/movie-card/MovieCard';
 
-const LaterList = props => {
+const LaterListMovies = props => {
 
     SwiperCore.use([Autoplay]);
 
@@ -37,9 +37,7 @@ const LaterList = props => {
             tmdbApi.find(i, {params: {api_key: apiConfig.apiKey, external_source: 'imdb_id'}})
                 .then(response => {
                     newList.push(response.movie_results)
-                    console.log(newList)
                     setItems(newList.flat())
-                    console.log(items)
             })
 
         }))
@@ -75,4 +73,4 @@ const LaterList = props => {
 //     ids: PropTypes.array.isRequired,
 // }
 
-export default LaterList;
+export default LaterListMovies;
