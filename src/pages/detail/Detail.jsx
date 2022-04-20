@@ -23,6 +23,7 @@ const Detail = () => {
     const [authToken, setAuthToken] = useState(null)
     const [trailer, setTrailer] = useState([]);
     const [item, setItem] = useState(null);
+    const [imdbId, setImdbId] = useState(null)
 
     useEffect(() => {
          const getVideos = async () => {
@@ -31,6 +32,15 @@ const Detail = () => {
             }
         getVideos();
     }, [category, id]);
+
+    useEffect(() => {
+        const getExterlanIds = async () => {
+            const res = await tmdbApi.getExternalIds(category, id)
+            setImdbId(res["imdb_id"])
+        }
+
+        getExterlanIds()
+    },  [category, id, imdbId])
 
     useEffect(() => {
         const getDetail = async () => {
@@ -51,13 +61,21 @@ const Detail = () => {
         setAuthToken(sessionStorage.getItem("Auth Token"))
     }, [])
 
+
+
     const addWaitList = async () => {
         try{
-            await setDoc(doc(db, "view-later-list", uid), {
-               [item.title || item.name] : id,
-            }, {merge: true})
-            console.log("Document written with ID: ", id);
-            toast.success(`🎥${item.title || item.name} додано до списку "Переглянути пізніше"`)
+            if(category === 'movie'){
+                await setDoc(doc(db, "later-movies", uid), {
+                    [item.title || item.name] : imdbId,
+                 }, {merge: true})
+                 toast.success(`🎥${item.title || item.name} додано до списку "Переглянути пізніше"`)
+            }else{
+                await setDoc(doc(db, "later-tv", uid), {
+                    [item.title || item.name] : imdbId,
+                 }, {merge: true})
+                 toast.success(`🎥${item.title || item.name} додано до списку "Переглянути пізніше"`)
+            }   
         }catch (e) {
             console.error("Error adding document: ", e);
         }

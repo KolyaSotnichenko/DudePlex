@@ -21,6 +21,35 @@ const LaterList = props => {
 
     SwiperCore.use([Autoplay]);
 
+    const [items, setItems] = useState()
+
+    let moviesList
+
+    useEffect(() => {
+
+        getListMovies()
+    }, [])
+
+    const getListMovies = async () => {
+        let newList = []
+
+        const data = Promise.all(props.movieIds.map((i) => {
+            tmdbApi.find(i, {params: {api_key: apiConfig.apiKey, external_source: 'imdb_id'}})
+                .then(response => {
+                    newList.push(response.movie_results)
+                    console.log(newList)
+                    setItems(newList.flat())
+                    console.log(items)
+            })
+
+        }))
+
+        // moviesList =  data
+
+
+        // return setItems(...moviesList)
+    }
+
     return (
         <div className="movie-list">
             <Swiper
@@ -30,13 +59,13 @@ const LaterList = props => {
                 slidesPerView={'auto'}
                 autoplay
             >
-                {/* {
-                    items.map((item, i) => (
-                        <SwiperSlide key={i}>
-                            <MovieCard item={item} category={props.category}/>
-                        </SwiperSlide>
-                    ))
-                } */}
+                    { items ? 
+                        items.map((item, i) => (
+                            <SwiperSlide key={i}>
+                                <MovieCard item={item} category={props.category}/>
+                            </SwiperSlide>
+                        ))
+                    : null}
             </Swiper>
         </div>
     );

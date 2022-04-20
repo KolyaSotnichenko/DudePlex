@@ -27,7 +27,7 @@ const Profile = () => {
     useEffect(() => {
         auth.onAuthStateChanged(user => {
             console.log(user.uid)
-            const docRef = doc(db, "view-later-list", user.uid)
+            const docRef = doc(db, "later-movies", user.uid)
 
             getDoc(docRef).then(snapshot => {
                 if(snapshot.exists()){
@@ -52,8 +52,8 @@ const Profile = () => {
                     <div style={{display: 'flex', justifyContent: 'center'}}>
                         <ProfileBlock />
                     </div>
-                    {moviesIds !== null ? (
-                        <MovieList />
+                    {moviesIds ? (
+                        <LaterList category='movie' movieIds={moviesIds} />
                     ) : null}
                 </div>
             </div>
