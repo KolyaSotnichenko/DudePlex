@@ -4,6 +4,9 @@ import { useParams } from 'react-router';
 
 import tmdbApi from '../../api/tmdbApi';
 
+import Lottie from 'react-lottie';
+import notFound from '../../lotties/not-found.json'
+
 const VideoList = props => {
 
     const {category} = useParams();
@@ -11,6 +14,7 @@ const VideoList = props => {
     // const [videos, setVideos] = useState([]);
 
     const [imdbId, setImdbId] = useState(null)
+    const [isLoaded, setIsLoaded] = useState(false)
 
     // useEffect(() => {
     //     const getVideos = async () => {
@@ -29,9 +33,41 @@ const VideoList = props => {
         getExterlanIds()
     },  [category, props.id, imdbId])
 
+    useEffect(() => {
+        if(!imdbId) return
+        fetch(`https://39.svetacdn.in/msNIXXBblTTU?imdb_id=${imdbId}`)
+            .then(response => {
+                console.log(response.status)
+                if(response.status === 200){
+                    setIsLoaded(true)
+                }
+            }).catch(error => {
+                console.log(error)
+            })
+    }, [imdbId])
+
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: notFound,
+        rendererSettings: {
+          preserveAspectRatio: "xMidYMid slice"
+        }
+    };
+
     return (
         <>
-            <Video imdb={imdbId}/>
+            {imdbId && isLoaded === true ? (
+                <Video imdb={imdbId}/>
+            ) : (
+                <>
+                    <Lottie 
+                        options={defaultOptions}
+                        height={400}
+                        width={400}
+                    />
+                </>
+            )}
         </>
     );
 }
@@ -78,6 +114,7 @@ const Video = props => {
                 width="100%"
                 height="100%"
                 title="video"
+                loading='eager'
                 allowfullscreen="true"
                 webkitallowfullscreen="true"
                 mozallowfullscreen="true"
