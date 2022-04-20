@@ -62,7 +62,7 @@ const Detail = () => {
                                 <div style={{display: 'flex', alignItems: 'center'}}>
                                     {trailer.length !== 0 && (
                                         <>
-                                            <Button onClick={() => window.location.href = `https://www.youtube.com/embed/${trailer[0]['key']}`}>
+                                            <Button onClick={() => window.open(`https://www.youtube.com/embed/${trailer[0]['key']}`)}>
                                                 Трейлер
                                             </Button>
                                             <p style={{paddingLeft: '50px',}} className='rating'>{item["vote_average"]}</p>
