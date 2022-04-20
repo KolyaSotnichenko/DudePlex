@@ -37,7 +37,7 @@ const ProfileBlock = () => {
                     <Button onClick={() => {
                         sessionStorage.removeItem('Auth Token')
                         history.push('/signin')
-                    }}>Sign out</Button>
+                    }}>Вийти</Button>
                 </div>
             </div>
         </>
