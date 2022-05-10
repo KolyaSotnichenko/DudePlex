@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import PageHeader from '../../components/page-header/PageHeader';
-import MovieList from '../../components/movie-list/MovieList';
+// import MovieList from '../../components/movie-list/MovieList';
 
-import { category, movieType} from '../../api/tmdbApi';
+// import { category, movieType} from '../../api/tmdbApi';
 import ProfileBlock from './ProfileBlock';
 import { useHistory } from 'react-router-dom';
 

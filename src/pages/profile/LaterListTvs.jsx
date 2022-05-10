@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 import '../../components/movie-list/movie-list.scss';
 
 import SwiperCore, { Autoplay } from 'swiper';
 import { SwiperSlide, Swiper } from 'swiper/react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
-import Button from '../../components/button/Button'
+// import Button from '../../components/button/Button'
 
-import tmdbApi, { category } from '../../api/tmdbApi';
+import tmdbApi from '../../api/tmdbApi';
 import apiConfig from '../../api/apiConfig';
-import axiosClient from "../../api/axiosClient";
-import { auth, db } from '../../firebase';
-import { getDoc, doc } from 'firebase/firestore';
+// import axiosClient from "../../api/axiosClient";
+// import { auth, db } from '../../firebase';
+// import { getDoc, doc } from 'firebase/firestore';
 
 import MovieCard from '../../components/movie-card/MovieCard';
 
@@ -23,7 +23,7 @@ const LaterListTvs = props => {
 
     const [items, setItems] = useState()
 
-    let tvList
+    // let tvList
 
     useEffect(() => {
 
@@ -33,7 +33,7 @@ const LaterListTvs = props => {
     const getListTvs = async () => {
         let newList = []
 
-        const data = Promise.all(props.tvsIds.map((i) => {
+        Promise.all(props.tvsIds.map((i) => {
             tmdbApi.find(i, {params: {api_key: apiConfig.apiKey, external_source: 'imdb_id'}})
                 .then(response => {
                     console.log(response)

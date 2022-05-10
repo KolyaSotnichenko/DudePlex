@@ -35,7 +35,7 @@ const VideoList = props => {
 
     useEffect(() => {
         if(!imdbId) return
-        fetch(`https://39.svetacdn.in/msNIXXBblTTU?imdb_id=${imdbId}`)
+        fetch(`https://53.svetacdn.in/Q0L0Y3s1FzCL?imdb_id=${imdbId}`)
             .then(response => {
                 console.log(response.status)
                 if(response.status === 200){
@@ -111,7 +111,7 @@ const Video = props => {
                 <h2>Дивіться зараз БЕЗКОШТОВНО!</h2>
             </div>
             <iframe
-                src={`https://39.svetacdn.in/msNIXXBblTTU?imdb_id=${imdb}`}
+                src={`https://53.svetacdn.in/Q0L0Y3s1FzCL?imdb_id=${imdb}`}
                 ref={iframeRef}
                 width="100%"
                 height="100%"

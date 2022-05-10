@@ -19,7 +19,7 @@ const Detail = () => {
 
     const { category, id } = useParams();
     const [uid, setUid] = useState(null);
-    const [moviesIds, setMoviesIds] = useState(null)
+    // const [moviesIds, setMoviesIds] = useState(null)
     const [authToken, setAuthToken] = useState(null)
     const [trailer, setTrailer] = useState([]);
     const [item, setItem] = useState(null);

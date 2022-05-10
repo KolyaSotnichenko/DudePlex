@@ -27,7 +27,7 @@ const ProfileBlock = () => {
         <>
             <div style={{display: 'flex', flexDirection: 'column'}}>
                 <div style={{textAlign: 'center'}}>
-                    <img src={image} width="100px" height="100px" style={{borderRadius: '50%'}} />
+                    <img src={image} width="100px" height="100px" style={{borderRadius: '50%'}} alt={name} />
                 </div>
                 <div style={{display: 'flex', marginTop: '50px', justifyContent: 'center'}}>
                     <h3>{name}</h3>
