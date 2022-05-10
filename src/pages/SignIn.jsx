@@ -22,6 +22,7 @@ const SignIn = () => {
         signInWithPopup(auth, provider)
             .then(result => {
                 sessionStorage.setItem("Auth Token", result.user.refreshToken)
+                sessionStorage.setItem("ProfileImg", result.user.photoURL)
 
                 history.push('/profile')
             })

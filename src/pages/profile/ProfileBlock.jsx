@@ -36,7 +36,8 @@ const ProfileBlock = () => {
                 <div style={{paddingTop: '50px', marginBottom: '50px', textAlign: 'center'}}>
                     <Button onClick={() => {
                         sessionStorage.removeItem('Auth Token')
-                        history.push('/signin')
+                        sessionStorage.removeItem('ProfileImg')
+                        history.push('/')
                     }}>Вийти</Button>
                 </div>
             </div>
