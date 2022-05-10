@@ -4,6 +4,7 @@ import PageHeader from '../components/page-header/PageHeader';
 import { provider, auth} from '../firebase'
 import { signInWithPopup } from 'firebase/auth';
 import GoogleButton from 'react-google-button'
+import { Link } from 'react-router-dom';
 
 const SignIn = () => {
 
@@ -38,6 +39,11 @@ const SignIn = () => {
                 <div style={{display: 'flex', justifyContent: 'center'}} className="section mb-3">
                     <div style={{}}>
                         <GoogleButton onClick={signInWithGoogle}/>
+                        <div style={{textAlign: 'center', marginTop: '20px'}}>
+                            <Link to="/">
+                                Go to home
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>
