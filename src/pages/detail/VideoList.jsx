@@ -117,7 +117,7 @@ const Video = props => {
                 height="100%"
                 title="video"
                 loading='eager'
-                allowfullscreen="true"
+                allowFullScreen={true}
                 webkitallowfullscreen="true"
                 mozallowfullscreen="true"
                 frameBorder="0"

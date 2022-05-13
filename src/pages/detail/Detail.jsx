@@ -101,7 +101,11 @@ const Detail = () => {
                                             <span key={i} className="genres__item">{genre.name}</span>
                                         ))
                                     }
-                                    <span className='genres__item'>{item.release_date}</span>
+                                    {
+                                        item.release_date && (
+                                            <span className='genres__item'>{item.release_date}</span>
+                                        )
+                                    }
                                 </div>
                                 <p className="overview">{item.overview}</p>
                                 <div style={{display: 'flex', alignItems: 'center'}}>
