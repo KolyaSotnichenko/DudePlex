@@ -44,7 +44,7 @@ const VideoList = props => {
             }).catch(error => {
                 console.log(error)
             })
-    }, [imdbId])
+    }, [imdbId, isLoaded])
 
     const defaultOptions = {
         loop: true,
@@ -57,7 +57,7 @@ const VideoList = props => {
 
     return (
         <>
-            {imdbId && isLoaded === true ? (
+            {imdbId || isLoaded === true ? (
                 <Video imdb={imdbId}/>
             ) : (
                 <>
