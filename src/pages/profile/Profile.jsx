@@ -49,9 +49,7 @@ const Profile = () => {
 
     return(
         <>
-            <PageHeader>
-                Переглянути пізніше
-            </PageHeader>
+            <PageHeader></PageHeader>
             <div className="container">
                 <div className="section mb-3">
                     <div style={{textAlign: 'center'}}>

@@ -9,6 +9,7 @@ import './header.scss';
 
 import logo from '../../assets/tmovie.png';
 import profile from '../../assets/profile.png'
+import favourite from '../../assets/heart.png'
 // import ProfileImg from './ProfileImg';
 
 const headerNav = [
@@ -74,7 +75,7 @@ const Header = () => {
                     { isAuthenticated && (
                         <li>
                             <Link to='/profile'>
-                                Мій список
+                                <img src={favourite} style={{width: '35px', height: '35px'}} alt="View later list" />
                             </Link>
                         </li>
                     )}

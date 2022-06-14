@@ -14,6 +14,8 @@ import Button from '../../components/button/Button';
 import MovieList from '../../components/movie-list/MovieList';
 import { useMoralis } from 'react-moralis';
 
+import favourite from '../../assets/heart.png'
+
 const Detail = () => {
 
     const { category, id } = useParams();
@@ -105,13 +107,19 @@ const Detail = () => {
                                                 Трейлер
                                             </Button>
                                             <p style={{paddingLeft: '50px',}} className='rating'>{item["vote_average"]}</p>
-                                            <span onClick={addWaitList} style={{ display: isAuthenticated ? 'inline-block' : 'none' ,marginLeft: '50px', cursor: 'pointer'}} className="btn-add" id="btn-add">Переглянути пізніше</span>
+                                            <span onClick={addWaitList} style={{ display: isAuthenticated ? 'flex' : 'none' ,marginLeft: '50px', cursor: 'pointer', alignItems: 'center'}} className="btn-add" id="btn-add">
+                                                <p>Додати до</p>
+                                                <img style={{width: '25px', height: '25px', marginLeft: '5px'}} src={favourite} alt="Favourite list" />
+                                            </span>
                                         </>
                                     )}
                                     {trailer.length === 0 && (
                                         <>
                                             <p className='rating'>{item["vote_average"]}</p>
-                                            <span style={{marginLeft: '50px', cursor: 'pointer'}} className="genres__item">Переглянути пізніше</span>
+                                            <span onClick={addWaitList} style={{ display: isAuthenticated ? 'flex' : 'none' ,marginLeft: '50px', cursor: 'pointer', alignItems: 'center'}} className="btn-add" id="btn-add">
+                                                <p>Додати до</p>
+                                                <img style={{width: '25px', height: '25px', marginLeft: '5px'}} src={favourite} alt="Favourite list" />
+                                            </span>
                                         </>
                                     )}
                                 </div>
