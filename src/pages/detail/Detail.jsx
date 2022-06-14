@@ -3,7 +3,6 @@ import { useParams } from 'react-router';
 
 import tmdbApi from '../../api/tmdbApi';
 import apiConfig from '../../api/apiConfig';
-import { doc, setDoc } from "firebase/firestore";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,17 +12,18 @@ import VideoList from './VideoList';
 import Button from '../../components/button/Button';
 
 import MovieList from '../../components/movie-list/MovieList';
-import { auth, db } from '../../firebase';
+import { useMoralis } from 'react-moralis';
 
 const Detail = () => {
 
     const { category, id } = useParams();
-    const [uid, setUid] = useState(null);
-    // const [moviesIds, setMoviesIds] = useState(null)
-    const [authToken, setAuthToken] = useState(null)
     const [trailer, setTrailer] = useState([]);
     const [item, setItem] = useState(null);
     const [imdbId, setImdbId] = useState(null)
+
+    const { isAuthenticated, Moralis, account } = useMoralis()
+
+    // const moviesInList = []
 
     useEffect(() => {
          const getVideos = async () => {
@@ -51,29 +51,19 @@ const Detail = () => {
         getDetail();
     }, [category, id]);
 
-    useEffect(() => {
-        auth.onAuthStateChanged(user => {
-            setUid(user?.uid)
-        })
-    }, [])
-
-    useEffect(() => {
-        setAuthToken(sessionStorage.getItem("Auth Token"))
-    }, [])
-
-
-
     const addWaitList = async () => {
         try{
             if(category === 'movie'){
-                await setDoc(doc(db, "later-movies", uid), {
-                    [item.title || item.name] : imdbId,
-                 }, {merge: true})
+                await Moralis.Cloud.run("setMyMovies", {
+                    addrs: account,
+                    newFav: imdbId
+                })
                  toast.success(`🎥${item.title || item.name} додано до списку "Переглянути пізніше"`)
             }else{
-                await setDoc(doc(db, "later-tv", uid), {
-                    [item.title || item.name] : imdbId,
-                 }, {merge: true})
+                await Moralis.Cloud.run("setMySeries", {
+                    addrs: account,
+                    newFav: imdbId
+                })
                  toast.success(`🎥${item.title || item.name} додано до списку "Переглянути пізніше"`)
             }   
         }catch (e) {
@@ -115,7 +105,7 @@ const Detail = () => {
                                                 Трейлер
                                             </Button>
                                             <p style={{paddingLeft: '50px',}} className='rating'>{item["vote_average"]}</p>
-                                            <span onClick={addWaitList} style={{ display: authToken ? 'inline-block' : 'none' ,marginLeft: '50px', cursor: 'pointer'}} className="btn-add" id="btn-add">Переглянути пізніше</span>
+                                            <span onClick={addWaitList} style={{ display: isAuthenticated ? 'inline-block' : 'none' ,marginLeft: '50px', cursor: 'pointer'}} className="btn-add" id="btn-add">Переглянути пізніше</span>
                                         </>
                                     )}
                                     {trailer.length === 0 && (

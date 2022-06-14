@@ -43,6 +43,7 @@ const VideoList = props => {
                 }
             }).catch(error => {
                 console.log(error)
+                setIsLoaded(false)
             })
     }, [imdbId])
 
@@ -84,26 +85,6 @@ const Video = props => {
         const height = iframeRef.current.offsetWidth * 9 / 16 + 'px';
         iframeRef.current.setAttribute('height', height);
     }, []);
-
-    // if(window.location.pathname === `/tv/${item}`){
-    //     return (
-    //         <div className="video">
-    //             <div className="video__title">
-    //                 <h2>Watch Now for FREE!</h2>
-    //             </div>
-    //             <iframe
-    //                 src={`https://39.svetacdn.in/msNIXXBblTTU?imdb_id=${imdb}`}
-    //                 ref={iframeRef}
-    //                 width="100%"
-    //                 title="video"
-    //                 allow='fullscreen'
-    //                 allowfullscreen="true"
-    //                 webkitallowfullscreen="true"
-    //                 mozallowfullscreen="true"
-    //             ></iframe>
-    //         </div>
-    //     )
-    // }
 
     return (
         <div className="video">

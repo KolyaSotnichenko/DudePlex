@@ -7,7 +7,7 @@ import SwiperCore, { Autoplay } from 'swiper';
 import { SwiperSlide, Swiper } from 'swiper/react';
 // import { Link } from 'react-router-dom';
 
-import Button from '../../components/button/Button'
+// import Button from '../../components/button/Button'
 
 import tmdbApi, { category } from '../../api/tmdbApi';
 import apiConfig from '../../api/apiConfig';

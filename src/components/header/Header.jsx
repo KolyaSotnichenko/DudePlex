@@ -1,12 +1,15 @@
 import React, { useRef, useEffect } from 'react';
 
 import { Link, useLocation } from 'react-router-dom';
+import { useMoralis } from 'react-moralis';
+
+import {ConnectButton} from 'web3uikit'
 
 import './header.scss';
 
 import logo from '../../assets/tmovie.png';
 import profile from '../../assets/profile.png'
-import ProfileImg from './ProfileImg';
+// import ProfileImg from './ProfileImg';
 
 const headerNav = [
     {
@@ -30,6 +33,7 @@ const headerNav = [
 const Header = () => {
 
     const { pathname } = useLocation();
+    const { isAuthenticated} = useMoralis()
     const headerRef = useRef(null);
 
     const active = headerNav.findIndex(e => e.path === pathname);
@@ -67,8 +71,15 @@ const Header = () => {
                             </li>
                         ))
                     }
+                    { isAuthenticated && (
+                        <li>
+                            <Link to='/profile'>
+                                Мій список
+                            </Link>
+                        </li>
+                    )}
                     <li>
-                        <ProfileImg />
+                        <ConnectButton />
                     </li>
                 </ul>
             </div>
