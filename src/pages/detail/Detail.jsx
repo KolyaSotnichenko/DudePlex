@@ -22,10 +22,38 @@ const Detail = () => {
     const [trailer, setTrailer] = useState([]);
     const [item, setItem] = useState(null);
     const [imdbId, setImdbId] = useState(null)
+    var [points, setPoints] = useState(0.00000)
 
-    const { isAuthenticated, Moralis, account } = useMoralis()
+    const { isAuthenticated, isInitialized, Moralis, account } = useMoralis()
 
-    // const moviesInList = []
+    function fetchedPoints() {
+        return Moralis.Cloud.run("getPoints", {addrs: account})
+            .then(function(data) {
+                var fetchedpoints = JSON.parse(data)
+                setPoints(fetchedpoints)
+                return fetchedpoints
+            })
+    }
+
+    useEffect(() => {
+
+        if(isInitialized){
+            fetchedPoints()
+        }
+
+        const earnedPoints = setInterval(() => {
+            Moralis.Cloud.run("setPoints", {
+                addrs: account,
+                newPoint: points += 0.00001
+            })
+            console.log(points)
+        },1000)
+
+        return () => {
+            
+            clearInterval(earnedPoints)
+        }
+    }, [points])
 
     useEffect(() => {
          const getVideos = async () => {

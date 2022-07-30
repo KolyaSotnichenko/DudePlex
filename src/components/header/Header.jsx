@@ -1,7 +1,8 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 import { Link, useLocation } from 'react-router-dom';
 import { useMoralis } from 'react-moralis';
+import { useMediaPredicate } from "react-media-hook";
 
 import {ConnectButton} from 'web3uikit'
 
@@ -13,10 +14,10 @@ import favourite from '../../assets/heart.png'
 // import ProfileImg from './ProfileImg';
 
 const headerNav = [
-    {
-        display: 'Головна',
-        path: '/'
-    },
+    // {
+    //     display: 'Головна',
+    //     path: '/'
+    // },
     {
         display: 'Фільми',
         path: '/movie'
@@ -34,8 +35,12 @@ const headerNav = [
 const Header = () => {
 
     const { pathname } = useLocation();
-    const { isAuthenticated} = useMoralis()
+    const { isAuthenticated, Moralis, account} = useMoralis()
     const headerRef = useRef(null);
+    const max480 = useMediaPredicate("(max-width: 480px)");
+    const min480 = useMediaPredicate("(min-width: 480px)");
+
+    var [points, setPoints] = useState(0.00000)
 
     const active = headerNav.findIndex(e => e.path === pathname);
 
@@ -60,6 +65,11 @@ const Header = () => {
                     <img src={logo} alt="" />
                     <Link to="/">DudePlex</Link>
                 </div>
+                { isAuthenticated && max480 && (
+                        <Link to='/profile'>
+                            <img src={favourite} style={{width: '35px', height: '35px'}} alt="View later list" />
+                        </Link>
+                    )}
                 <ul className="header__nav">
                     {
                         headerNav.map((e, i) => (
@@ -72,7 +82,7 @@ const Header = () => {
                             </li>
                         ))
                     }
-                    { isAuthenticated && (
+                    { isAuthenticated && min480 && (
                         <li>
                             <Link to='/profile'>
                                 <img src={favourite} style={{width: '35px', height: '35px'}} alt="View later list" />

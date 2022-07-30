@@ -7,6 +7,8 @@ import { useHistory } from 'react-router-dom';
 import LaterListMovies from './LaterListMovies';
 import LaterListTvs from './LaterListTvs';
 
+import sun from '../../assets/sun.png'
+
 import { useMoralis } from 'react-moralis';
 
 
@@ -15,7 +17,8 @@ const Profile = () => {
     let history = useHistory()
     const [myMovies, setMyMovies] = useState()
     const [mySeries, setMySeries] = useState()
-    const { isAuthenticated, Moralis, account  } = useMoralis()
+    var [points, setPoints] = useState(0.00000)
+    const { isAuthenticated, isInitialized, Moralis, account  } = useMoralis()
 
     useEffect(() => {
         if(!isAuthenticated){
@@ -31,6 +34,7 @@ const Profile = () => {
             setMyMovies(theList)
         }
 
+        
         fetchMyMovies()
 
     }, [account])
@@ -47,11 +51,43 @@ const Profile = () => {
 
     }, [account])
 
+    function fetchedPoints() {
+        return Moralis.Cloud.run("getPoints", {addrs: account})
+            .then(function(data) {
+                var fetchedpoints = JSON.parse(data)
+                setPoints(fetchedpoints)
+                return fetchedpoints
+            })
+    }
+
+    useEffect(() => {
+
+        if(isInitialized){
+            fetchedPoints()
+        }
+
+        return () => {
+            console.log("Ok")
+        }
+    }, [])
+
     return(
         <>
             <PageHeader></PageHeader>
             <div className="container">
                 <div className="section mb-3">
+                    <div
+                        className='mb-3'
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}
+                    >
+                        <p>{points.toFixed(5)}</p>
+                        <img style={{width: '25px', height: '25px', marginLeft: '5px'}} src={sun} alt="SunPoints" />
+                    </div>
                     <div style={{textAlign: 'center'}}>
                         <h2>Фільми</h2>
                     </div>
