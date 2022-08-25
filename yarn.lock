@@ -12815,6 +12815,11 @@ react-app-polyfill@^2.0.0:
     regenerator-runtime "^0.13.7"
     whatwg-fetch "^3.4.1"
 
+react-autocomplete-hint@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-autocomplete-hint/-/react-autocomplete-hint-2.0.0.tgz#4a08be86c0050cbaa1c6a5b38bc3e0e688a8eae8"
+  integrity sha512-cwj+h503xosFvd7y/tVHAo2bMj033v9WzVKbsPKc/SfoNsLD75/5nhBoIxbZOCP2KiPhgHHalb77Z/4pu6uwTQ==
+
 react-blockies@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/react-blockies/-/react-blockies-1.4.1.tgz#d4f0faf95ac197213a297a370a4d7f77ea3d0b08"
